@@ -1,33 +1,39 @@
 from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required
-import requests
-
+import random
+from .models import Surah, Ayah
 
 @login_required
 def exam (request)  :
+
+
+    while True :
+        ayah = random.choices(Ayah.objects.all())[0]
+        
+        if Ayah.objects.filter(text=ayah.text).count() == 1 :
+            text = ayah.text
+            surah = ayah.surah
+
+            break
+    
+    all_choices = [
+        random.choices(Surah.objects.all())[0].surah_name,
+        random.choices(Surah.objects.all())[0].surah_name,
+        random.choices(Surah.objects.all())[0].surah_name,
+        surah.surah_name
+    ]
+
+    random.shuffle(all_choices)
+        
+    print(text)
+    print(surah)
+    print(all_choices)
+
     return HttpResponse('exam')
+
 
 @login_required
 def profile (request)  :
-
-    url = 'http://quran.dis-store.website/surah'
-
-    req = requests.get(url).json()
-
-
-    while True : 
-        
-        results = req['results']
-
-        for surah in results : 
-            print(surah['id'])
-            print(surah['surah_name'])
-            print(surah['surah_type'])
-            print(surah['number_of_ayahs'])
-            print('-'*10)
-
-        break
-
     return HttpResponse('profile')
 
 
