@@ -1,7 +1,9 @@
 from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required
-import random
-from .models import Surah, Ayah
+import random, uuid
+from .models import Surah, Ayah, LeaderboardModel
+from django.contrib.auth.models import User
+from django.contrib.auth.views import auth_login
 
 @login_required
 def exam (request)  :
@@ -23,6 +25,7 @@ def exam (request)  :
         surah.surah_name
     ]
 
+    
     random.shuffle(all_choices)
         
     print(text)
@@ -34,6 +37,11 @@ def exam (request)  :
 
 @login_required
 def profile (request)  :
+
+    # top 10 leaders
+    leaders = LeaderboardModel.objects.order_by('-points')[:10]
+
+
     return HttpResponse('profile')
 
 
@@ -42,5 +50,25 @@ def login (request) :
 
 
 def register (request) : 
+
+    if request.method == "POST" : 
+        name = request.POST['name']
+        username = f'{str(name).replace("","_")}|{uuid.uuid4()}'
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = User.objects.create_user(
+            username = username,
+            email = email,
+            password = password
+        )
+
+        user.first_name = name
+        
+        user.save()
+
+        auth_login(request,user)
+
+
     return HttpResponse('register')
 
