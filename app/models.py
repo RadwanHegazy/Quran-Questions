@@ -29,6 +29,19 @@ class Ayah (models.Model):
     audio = models.TextField(default='')
 
 
+class SessionModel (models.Model) : 
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    question = models.CharField(max_length=1000)
+    uuid = models.CharField(max_length=10000)
+
+    answers = models.CharField(max_length=1000,default='')
+
+    correct_answer = models.CharField(max_length=1000)
+    user_answer = models.CharField(max_length=1000,default='')
+    audio = models.URLField(default='')
+
+
+
 @receiver(post_save, sender=User)
 def CreateLieaderBoardModel (created,instance,**args) : 
     if created :

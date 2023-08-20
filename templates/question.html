@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Questions </title>
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
+<body>
+    
+    <div class="container">
+
+
+        <div class="question-name">
+            <p>{{question}}</p>
+            <audio src="{{audio}}" controls></audio>
+
+        </div>
+
+        <form class="answers" method="POST">
+            {% csrf_token %}
+            <!-- <div class="answer correct">
+                سورة الاخلاص
+            </div>
+
+            <div class="answer wrong">
+                سورة الاخلاص
+            </div>
+             -->
+
+            {% if s.user_answer %}
+            
+                {% for choice in choices %}
+            
+                    {% if choice == s.user_answer and choice == s.correct_answer %}
+                        <div class="answer correct">{{choice}}</div>
+                    {% elif  s.user_answer == choice %}
+                        <div class="answer wrong">{{choice}}</div>
+                    {% elif  s.correct_answer == choice %}
+                        <div class="answer correct">{{choice}}</div>
+                    {% else %}
+                        <div class="answer">{{choice}}</div>
+                    {% endif %}
+             
+                {% endfor %}
+            
+                {% else %}
+                    {% for choice in choices %}
+                        <div class="answer">{{choice}}</div>
+                    {% endfor %}
+            {% endif %}
+            
+            
+            <input type="hidden" id="choice" name="user_answer" value="">
+
+        </form>
+
+        {% if s.user_answer %}
+            <div class="options">
+
+                <a href="{% url 'profile' %}" class="exit">الخروج</a>
+                <a href="#" class="points">
+                    <p>مجموعك</p>
+                    <p>{{points}}</p>
+                </a>
+                <a href="{% url 'exam' %}" class="next">
+                    التالي
+                </a>
+
+            </div>
+        {% endif %}
+
+    </div>
+
+
+    <footer>
+        <p>تم الانشاء بواسطة رضوان جابر حجازي</p>
+    </footer>
+
+
+    <script>
+
+
+
+        var choices = document.querySelectorAll('.answers .answer');
+        var choice = document.querySelector('#choice')
+        var form = document.querySelector('form')
+
+        if ('{{s.user_answer}}'){
+            
+        }else{
+            choices.forEach( item =>{
+
+                item.addEventListener('click',()=>{
+                    
+                    choices.forEach( i => {
+                        i.classList.remove('choice')
+                    })
+    
+                    item.classList.add('choice')
+                    choice.value = item.textContent
+    
+                    if (choice){
+                        form.submit()
+                    }
+    
+                })
+    
+            })
+        }
+
+    </script>
+</body>
+</html>

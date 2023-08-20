@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+
+
+
+:root{
+    --var-font: 'Cairo', sans-serif;
+    --text-color:#19BBD5;
+    --input-text-color:#1BC9E6;
+    --input-bg-color:#BAEAF2;
+    --accpet-btn-color:#A8EE6B;
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #0a616f;
+}
+
+
+.container, footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--var-font);
+    z-index: 2;
+
+}
+
+.container {
+    flex: 6;
+}
+
+footer{
+    flex: 0.5;
+    color: var(--text-color);
+    background-color: #f9f9f910;
+
+}
+
+footer p {
+    text-shadow: 0px 2px 21px #19BBD5;
+    background-color: transparent;
+}
+
+
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 350px;
+    text-align: center;
+    padding: .6rem 1.2rem;
+    background-color: #f9f9f910;
+    border-radius: 12px;
+
+}
+
+form h1 {
+    color: var(--text-color);
+    text-shadow: 0px 2px 21px #19BBD550;
+
+}
+
+form input {
+    width: 100%;
+    height: 60px;
+    direction: rtl;
+    padding: 7px 12px;
+    font-family: var(--var-font);
+    border: none;
+    outline: none;
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
+}
+
+
+form .btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+form .btns button {
+    width: 100px;
+    height: 45px;
+    padding: 5px 10px;
+    font-family: var(--var-font);
+    border: none;
+    outline: none;
+    background-color: var(--accpet-btn-color)
+
+}
+
+form .btns a {
+    color: var(--text-color);
+}
+
+
+form .msg {
+    color: rgb(57, 1, 1);
+    border: 2px solid crimson;
+    background-color: rgb(132, 52, 68);
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}

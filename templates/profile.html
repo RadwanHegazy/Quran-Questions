@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Profile </title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+    
+    <div id="particles-js"></div>
+
+    <div class="container">
+        
+        <div class="up">
+            <p>@{{user.first_name}}</p>
+            <p>نقاطك : {{points}}</p>
+            <a href="{% url 'exam' %}">دخول اختبار</a>
+        </div>
+
+
+        <div class="down">
+            <p>قائمة الشرف لافضل 5 اشخاص</p>
+            
+            
+            {% for leader in leaders %}
+            
+                {% if leader.user == user %}
+
+                    <div class="user-list me">
+                        <p>{{ leader.user.first_name }}</p>
+                        <p>{{ leader.points }}</p>
+                    </div>
+                    
+                {% else %}
+
+                    <div class="user-list">
+                        <p>{{ leader.user.first_name }}</p>
+                        <p>{{ leader.points }}</p>
+                    </div>
+                {% endif %}
+            
+            {% endfor %}
+            
+
+        </div>
+    </div>
+
+
+    <footer>
+        <p>تم الانشاء بواسطة رضوان جابر حجازي</p>
+    </footer>
+
+
+        
+    <script src="{% static 'particles.js/particles.min.js' %}"></script>
+
+    <script>
+
+        particlesJS.load('particles-js', '{% static "particles.js/particles.json" %}', function() {
+            console.log('callback - particles.js config loaded');
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Surah, Ayah, LeaderboardModel
+from .models import Surah, Ayah, LeaderboardModel, SessionModel
 from django.contrib.auth.models import Group
 
 
@@ -16,6 +16,7 @@ class AyahPanel (admin.ModelAdmin) :
 admin.site.register(Surah, SurahPanel)
 admin.site.register(Ayah,AyahPanel)
 admin.site.register(LeaderboardModel, LeaderBoardPanel)
+admin.site.register(SessionModel)
 
 
 admin.site.unregister(Group)

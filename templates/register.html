@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> انشاء حساب </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    
+    
+    <div id="particles-js"></div>
+    <div class="container">
+    
+
+        <form method="POST" >
+
+            {% csrf_token %}
+            <h1>انشاء حساب</h1>
+
+            <input type="text" name="name" placeholder="اسم المستخدم">
+            <input type="email" name="email" placeholder="البريد الالكتروني">
+            <input type="password" name="password" placeholder="كلمة المرور">
+    
+            <div class="btns">
+
+                <a href="{% url 'login' %}">تسجيل الدخول ؟ </a>
+                <button type="submit">انشاء حساب</button>
+            </div>
+
+        </form>
+        
+    </div>
+
+
+    <footer>
+        <p>تم الانشاء بواسطة رضوان جابر حجازي</p>
+    </footer>
+
+    
+    <script src="{% static 'particles.js/particles.min.js' %}"></script>
+
+    <script>
+
+        particlesJS.load('particles-js', '{% static "particles.js/particles.json" %}', function() {
+            console.log('callback - particles.js config loaded');
+        });
+
+    </script>
+</body>
+</html>
