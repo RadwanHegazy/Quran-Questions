@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 import random, uuid
 from .models import Surah, Ayah, LeaderboardModel, SessionModel
@@ -52,9 +52,9 @@ def exam (request)  :
             break
     
     all_choices = [
-        random.choices(Surah.objects.all())[0].surah_name,
-        random.choices(Surah.objects.all())[0].surah_name,
-        random.choices(Surah.objects.all())[0].surah_name,
+        random.choices(Surah.objects.all().exclude(surah_name=surah.surah_name))[0].surah_name,
+        random.choices(Surah.objects.all().exclude(surah_name=surah.surah_name))[0].surah_name,
+        random.choices(Surah.objects.all().exclude(surah_name=surah.surah_name))[0].surah_name,
         surah.surah_name
     ]
 
@@ -79,8 +79,7 @@ def exam (request)  :
 @login_required
 def profile (request)  :
 
-    # top 10 leaders
-    leaders = LeaderboardModel.objects.order_by('-points')[:10]
+    leaders = LeaderboardModel.objects.order_by('-points')[:5]
     points = LeaderboardModel.objects.get(user=request.user)
 
     return render(request,'profile.html',{'leaders':leaders,'points':points.points})
